@@ -1,0 +1,15 @@
+name: push repo linked package 
+on:
+
+   
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to GitHub container Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u dwivedine --password-stdin
+      - name: tag Docker image
+        run: docker tag busybox:latest ghcr.io/vamosrm/busybox:latest
+      - name: docker push
+        run: docker push ghcr.io/vamosrm/busybox:latest
